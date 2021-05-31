@@ -1,1 +1,6 @@
 Flask==1.0.4
+flask-sqlalchemy
+psycopg2-binary
+flask-testing
+gunicorn
+coverage

@@ -4,3 +4,4 @@ psycopg2-binary
 flask-testing
 gunicorn
 coverage
+flask-cors

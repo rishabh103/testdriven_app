@@ -39,3 +39,17 @@ def get_single_user(user_id):
         }
     }
     return jsonify(response_object), 200
+
+@users_blueprint.route('/users',methods=['GET'])
+def get_all_user():
+    """Get all user details"""
+
+    
+    
+    response_object = {
+    'status': 'success',
+    'data': {
+    'users': [user.to_json() for user in User.query.all()]
+        }
+    }
+    return jsonify(response_object), 200

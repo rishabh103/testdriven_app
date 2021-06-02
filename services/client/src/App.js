@@ -2,16 +2,25 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Component } from "react";
 import axios from "axios";
-import UsersList from './components/UsersList'
-
+import UsersList from "./components/UsersList";
+import AddUser from "./components/AddUser";
 class App extends Component {
   constructor() {
     super();
     this.state = {
       users: [],
+      username: '',
+      email: '',
     };
+    this.addUser = this.addUser.bind(this);
   }
 
+  addUser(event) {
+    event.preventDefault();
+    console.log("sanity check!");
+    console.log(this);
+    
+  }
   getUsers() {
     axios
       .get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
@@ -20,7 +29,7 @@ class App extends Component {
       })
       // .then((res)=>{
       //   console.log(res.data.data);
-        
+
       // })
       .catch((err) => {
         console.log(err);
@@ -39,7 +48,12 @@ class App extends Component {
             <h1>All Users</h1>
             <hr />
             <br />
-             <UsersList users={this.state.users}></UsersList>
+            <AddUser addUser={this.addUser}
+                // username={this.state.username}
+                // email={this.state.email}
+            />
+            <br />
+            <UsersList users={this.state.users}></UsersList>
           </div>
         </div>
       </div>

@@ -7,5 +7,8 @@ while ! nc -z users-db 5432; do
 done
 
 echo "PostgreSQL started"
+# python manage.py db init
+# python manage.py db migrate
+# python manage.py db upgrade
 
 python manage.py run -h 0.0.0.0 

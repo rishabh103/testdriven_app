@@ -2,6 +2,8 @@ from flask import Flask, jsonify
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
 # instantiate the app
 # app = Flask(__name__)
 # print(os.getenv)
@@ -9,8 +11,9 @@ from flask_cors import CORS
 # app.config.from_object(app_settings)
 
 db = SQLAlchemy()
+migrate = Migrate()
 # print(app.config)
-
+bcrypt = Bcrypt()
 def create_app(script_info=None):
     
     app = Flask(__name__)
@@ -18,10 +21,15 @@ def create_app(script_info=None):
     app_settings = os.getenv('APP_SETTINGS')
     app.config.from_object(app_settings)
     db.init_app(app)
+    migrate.init_app(app, db)
+    bcrypt.init_app(app)
 
     from project.api.users import users_blueprint
 
     app.register_blueprint(users_blueprint)
+
+    from project.api.auth import auth_blueprint
+    app.register_blueprint(auth_blueprint)
 
     app.shell_context_processor({'app': app, 'db': db})
     return app

@@ -14,7 +14,10 @@ class TestDevelopmentConfig(TestCase):
         return app
     
     def test_app_is_development(self):
+        self.assertTrue(app.config['SECRET_KEY'] == os.environ.get('SECRET_KEY'))
         self.assertFalse(current_app is None)
+        self.assertTrue(app.config['TOKEN_EXPIRATION_DAYS'] == 30)
+        self.assertTrue(app.config['TOKEN_EXPIRATION_SECONDS'] == 0)
         self.assertTrue(
             app.config['SQLALCHEMY_DATABASE_URI'] ==
             os.environ.get('DATABASE_URL')

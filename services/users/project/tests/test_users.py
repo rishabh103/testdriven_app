@@ -26,7 +26,8 @@ class TestUserService(BaseTestCase):
             response = self.client.post('/users',
                 data = json.dumps({
                     'username' : 'rishabh',
-                    'email': 'rishabh103@gmail.com'
+                    'email': 'rishabh103@gmail.com',
+                    'password':'tomorrow123'
                 }),
                 content_type = 'application/json'
             )
@@ -37,7 +38,7 @@ class TestUserService(BaseTestCase):
     
     def test_single_user(self):
         """Ensure get single user behaves correctly."""
-        user = User(username='michael', email='michael@mherman.org')
+        user = User(username='michael', email='michael@mherman.org',password='tomorrow123')
         db.session.add(user)
         db.session.commit()
         with self.client:
